@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Scrumy Toolkit</title>
+        <script type="text/javascript" src="jquery.js">
+        </script>
+        <script type="text/javascript" src="jquery.cookie.js">
+        </script>
+        <script type="text/javascript" src="base64.js">
+        </script>
+        <script type="text/javascript" src="scrumyutils.js">
+        </script>
+    </head>
+    <body>
+        <form action="">
+        <h1>Scrumy Toolkit</h1>
+        <div style="padding: 10px; margin: 10px; border-style: solid; border-color: #dFdFeF;
+ width: 230px;  text-align: right">
+ Scrumy:<input name="scrumyname" type="text" id="scrumyname" value="" />
+        <br/>
+        Password:<input name="password" type="password" id="scrumypwd" />
+        </div>
+        <div style="padding: 10px; margin: 10px; border-style: solid; width: 300px; float: left;
+ display: inline-block;">
+            <h2>Add a Task to all Stories in current Sprint.</h2>
+            Title:<input type="text" name="title" id="title" value="Test" maxlength="30" size="30" />
+            <br/>
+            Scrumer:<input type="text" name="scrumer_name" id="scrumer_name" value="" />
+            <br/>
+            <input type="button" id="btnaddtask" value="Add Tasks" />
+            <br/>
+            <br/>
+            <span id="status" style="background: yellow;"></span>
+        </div>
+        <div style="padding: 10px; margin: 10px; border-style: solid; width: 300px; float: left;
+ display: inline-block;">
+            <h2>Batch task changes in current Sprint</h2>
+            Title Contains:<input type="text" name="titlecontains" id="titlecontains" value="test" maxlength="30" size="30" />
+            <br/>
+            In Status:
+            <select id="changeinstatus" name="changeinstatus">
+                <option value="">any</option>
+                <option value="todo">todo</option>
+                <option value="inprogress">inprogress</option>
+                <option value="verify" selected="selected">verify</option>
+                <option value="done">done</option>
+            </select>
+            <br/>
+            Add to Title:<input type="text" name="addtotitle" id="addtotitle" value="" maxlength="10" size="10" />
+            <br/>
+            Set Scrumer:<input type="text" name="newscrumer_name" id="newscrumer_name" value="QA" />
+            <br/>
+            <input type="button" name="btnbatchchange" id="btnbatchchange" value="Change Tasks" />
+            <br/>
+            <br/>
+            <span id="batchchangestatus" style="background: yellow;"></span>
+        </div>
+    </form>
+    <script type="text/javascript">
+        
+        $('#btnaddtask').click(function(e){
+        
+            scrumyutils.inputState.save();
+            
+            if (!$('#scrumyname').val()) {
+                $('#status').text('scrumy name is required');
+                $('#scrumyname').focus();
+                return;
+            }
+            if (!$('#scrumypwd').val()) {
+                $('#status').text('password is required');
+                $('#scrumypwd').focus();
+                return;
+            }
+            
+            scrumyutils.batchAddTask($('#scrumyname').val(), $('#scrumypwd').val(), $.trim($('#title')[0].value), $.trim($('#scrumer_name')[0].value), function(message){
+                $('#status').text(message);
+            });
+        });
+        
+        
+        
+        $('#btnbatchchange').click(function(e){
+        
+            scrumyutils.inputState.save();
+            
+            if (!$('#scrumyname').val()) {
+                $('#batchchangestatus').text('scrumy name is required');
+                $('#scrumyname').focus();
+                return;
+            }
+            if (!$('#scrumypwd').val()) {
+                $('#batchchangestatus').text('password is required');
+                $('#scrumypwd').focus();
+                return;
+            }
+            
+            scrumyutils.batchAddTask($('#scrumyname').val(), $('#scrumypwd').val(), $.trim(titleCont || '').toLowerCase(), $('#changeinstatus').val(), $('#addtotitle').val(), $('#newscrumer_name').val(), function(message){
+                $('#batchchangestatus').text(message);
+            });
+            
+        });
+        
+        $(document).ready(function(){
+            scrumyutils.inputState.restore();
+            scrumyutils.inputState.save();
+        });
+    </script>
+    </body>
+</html>
