@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Scrumy Toolkit</title>
@@ -55,29 +55,6 @@
             <br/>
             <span id="batchchangestatus" style="background: yellow;"></span>
         </div>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-        <div style="text-align:center; padding: 30px; font-size:smaller;">
-            <a style="color:#888888;" href='https://github.com/benjamine/scrumy-utils'>https://github.com/benjamine/scrumy-utils</a>
-        </div>
     </form>
     <script type="text/javascript">
         
@@ -101,6 +78,8 @@
             });
         });
         
+        
+        
         $('#btnbatchchange').click(function(e){
         
             scrumyutils.inputState.save();
@@ -116,7 +95,7 @@
                 return;
             }
             
-            scrumyutils.batchChangeTasks($('#scrumyname').val(), $('#scrumypwd').val(), $.trim($('#titlecontains').val() || '').toLowerCase(), $('#changeinstatus').val(), $('#addtotitle').val(), $('#newscrumer_name').val(), function(message){
+            scrumyutils.batchAddTask($('#scrumyname').val(), $('#scrumypwd').val(), $.trim(titleCont || '').toLowerCase(), $('#changeinstatus').val(), $('#addtotitle').val(), $('#newscrumer_name').val(), function(message){
                 $('#batchchangestatus').text(message);
             });
             
